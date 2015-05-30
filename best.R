@@ -9,7 +9,8 @@ best <- function(state=NA, outcome=NA) {
                      )
     
     ## Check that state and outcome are valid
-    if (is.na(state) || nchar(state)>2) {
+    # if (is.na(state) || nchar(state)>2) {
+    if (state %in% data$State == FALSE) {
         stop("invalid state")
         # print("invalid state")
         # err = err + 1
