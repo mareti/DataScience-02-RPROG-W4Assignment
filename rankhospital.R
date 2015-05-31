@@ -19,9 +19,11 @@ rankhospital <- function(state=NA, outcome=NA, num="best") {
     y = subset(data.frame(data[c(2,7,i)]), data$State==state)
     colnames(y) = c("Name", "State", "Rate")
     y = y[ order( y[3], y[1], na.last=TRUE, decreasing=FALSE ), ]
+    y$Rank = ave(y$Rate, FUN = function(x) rank(x, ties.method="first"))
+    y = na.omit(y)
     
     if (num=="best") num=1
-    if (num=="worst") num=2
+    if (num=="worst") num=max(y$Rank, na.rm=TRUE)
     
     as.character(print(y[num,1], row.names=FALSE, max.levels=0))
 }
